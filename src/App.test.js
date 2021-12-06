@@ -1,8 +1,28 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
+//import ListItem from './components/ListItem';
+
+/*
+const mockData = [
+  "test1",
+  "test2"
+]
+*/
+const func = jest.fn()
+
+describe("add component", () => {
+  test('check onChange component', () => {
+    render(<App />);
+    const element = screen.getByPlaceholderText(/add a task/i);
+    expect(element).toBeInTheDocument();
+  });
+
+  test('check onChange component', () => {
+    render(<App setInput={func}/>);
+    const element = screen.getByPlaceholderText(/add a task/i);
+    fireEvent.change(element, { target: {value: "Push to Github"}})
+    expect(element.value).toBe("Push to Github")
+  });
+})
+
